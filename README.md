@@ -2,7 +2,7 @@
 
 Ankur Sharma's personal blog. Built with [Astro](https://astro.build), deployed to GitHub Pages.
 
-Live at <https://askankur.github.io/kurkure/>.
+Live at <https://askankur.github.io/blog/>.
 
 ## Writing a post
 
@@ -24,7 +24,7 @@ Post body in markdown.
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321/kurkure
+npm run dev      # http://localhost:4321/blog
 npm run build    # outputs to dist/
 npm run preview  # serve the built dist/ locally
 ```
