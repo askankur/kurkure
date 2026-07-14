@@ -90,6 +90,7 @@ header.site-bar .site-title {
 
 header.site-bar nav {
 	display: flex;
+	align-items: center;
 	gap: 1.25rem;
 	font-size: 0.95rem;
 	color: var(--ink-dim);
@@ -98,19 +99,58 @@ header.site-bar nav {
 .theme-toggle {
 	appearance: none;
 	background: none;
-	border: 1px solid var(--rule);
-	border-radius: 999px;
+	border: none;
+	padding: 0;
+	margin: 0;
 	color: var(--ink-dim);
-	font-family: var(--font-mono);
-	font-size: 0.75rem;
-	padding: 0.2rem 0.65rem;
 	cursor: pointer;
-	line-height: 1.4;
+	display: inline-flex;
+	align-items: center;
+	line-height: 1;
 }
 
 .theme-toggle:hover {
 	color: var(--accent);
-	border-color: var(--accent);
+}
+
+.theme-toggle svg {
+	display: block;
+}
+
+.theme-toggle .icon-sun circle,
+.theme-toggle .icon-sun path {
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.6;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.theme-toggle .icon-moon path {
+	fill: currentColor;
+	stroke: none;
+}
+
+.theme-toggle .icon-sun {
+	display: none;
+}
+
+:root[data-theme='dark'] .theme-toggle .icon-sun {
+	display: block;
+}
+
+:root[data-theme='dark'] .theme-toggle .icon-moon {
+	display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) .theme-toggle .icon-sun {
+		display: block;
+	}
+
+	:root:not([data-theme='light']) .theme-toggle .icon-moon {
+		display: none;
+	}
 }
 
 h1,
