@@ -1,17 +1,35 @@
-# Quartz v5
+# Innocuous Meandering
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+Ankur Sharma's personal blog. Built with [Astro](https://astro.build), deployed to GitHub Pages.
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+Live at <https://askankur.github.io/kurkure/>.
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+## Writing a post
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+Add a markdown file under `src/content/posts/`, e.g. `src/content/posts/my-post.md`:
 
-## Sponsors
+```md
+---
+title: My Post Title
+date: 2026-07-15
+dek: One line on what it's about (optional, shows in the list view).
+---
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+Post body in markdown.
+```
+
+`draft: true` in frontmatter keeps a post out of the build.
+
+## Local development
+
+```bash
+npm install
+npm run dev      # http://localhost:4321/kurkure
+npm run build    # outputs to dist/
+npm run preview  # serve the built dist/ locally
+```
+
+## Deploy
+
+Pushing to `v5` triggers `.github/workflows/deploy.yml`, which builds and deploys straight to
+GitHub Pages. There is no separate "publish" step — **pushing to `v5` is publishing**.

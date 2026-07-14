@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../lib/url';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function readingTime(body: string) {
+	const words = body.trim().split(/\s+/).length;
+	return Math.max(1, Math.round(words / 200));
+}
+
+function formatDate(d: Date) {
+	return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+---
+
+<BaseLayout title="Home">
+	<p class="intro">Welcome to my website where I try sharing my thoughts.</p>
+
+	{
+		posts.length === 0 ? (
+			<p class="empty-state">No posts yet — check back soon.</p>
+		) : (
+			<ul class="entry-list">
+				{posts.map((post) => (
+					<li class="entry">
+						<p class="entry-meta">
+							{formatDate(post.data.date)} &middot; {readingTime(post.body ?? '')} min
+						</p>
+						<h3 class="entry-title">
+							<a href={withBase(`posts/${post.id}/`)}>{post.data.title}</a>
+						</h3>
+						{post.data.dek && <p class="entry-dek">{post.data.dek}</p>}
+					</li>
+				))}
+			</ul>
+		)
+	}
+</BaseLayout>

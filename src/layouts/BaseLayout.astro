@@ -1,0 +1,62 @@
+---
+import '../styles/global.css';
+import { withBase } from '../lib/url';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = 'Innocuous Meandering — thoughts, shared.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title} · Innocuous Meandering</title>
+		<meta name="description" content={description} />
+		<link rel="icon" href={withBase('favicon.ico')} sizes="any" />
+		<meta name="generator" content={Astro.generator} />
+		<script is:inline>
+			// Runs before paint: no flash of wrong theme.
+			(function () {
+				const stored = localStorage.getItem('theme');
+				if (stored) document.documentElement.setAttribute('data-theme', stored);
+			})();
+		</script>
+	</head>
+	<body>
+		<div class="wrap">
+			<header class="site-bar">
+				<a class="site-title" href={withBase('')}>Innocuous Meandering</a>
+				<nav>
+					<a href={withBase('')}>Posts</a>
+					<a href={withBase('about/')}>About</a>
+					<button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+						☾/☀
+					</button>
+				</nav>
+			</header>
+			<slot />
+			<footer class="site-foot">
+				<p>Innocuous Meandering &mdash; Ankur Sharma</p>
+			</footer>
+		</div>
+		<script is:inline>
+			(function () {
+				const btn = document.getElementById('theme-toggle');
+				btn?.addEventListener('click', () => {
+					const root = document.documentElement;
+					const current =
+						root.getAttribute('data-theme') ||
+						(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+					const next = current === 'dark' ? 'light' : 'dark';
+					root.setAttribute('data-theme', next);
+					localStorage.setItem('theme', next);
+				});
+			})();
+		</script>
+	</body>
+</html>
